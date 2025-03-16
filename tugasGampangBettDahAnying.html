@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Pegawai</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-6">
+    <div class="container mx-auto">
+        <h1 class="text-2xl font-bold text-gray-800 mb-4 text-center">Data Pegawai</h1>
+        <div class="overflow-x-auto">
+            <table class="w-full bg-white shadow-md rounded-lg border-collapse border border-gray-300">
+                <thead>
+                    <tr class="bg-blue-500 text-white text-left">
+                        <th class="p-3 border">Nama Pegawai</th>
+                        <th class="p-3 border">Umur</th>
+                        <th class="p-3 border">Jabatan</th>
+                        <th class="p-3 border">Status</th>
+                        <th class="p-3 border">Gaji Pokok</th>
+                        <th class="p-3 border">Tunjangan Jabatan</th>
+                        <th class="p-3 border">BPJS</th>
+                        <th class="p-3 border">Tunjangan Keluarga</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="bg-gray-50 hover:bg-gray-100 transition">
+                        <td class="p-3 border">Dodi Prayodi</td>
+                        <td class="p-3 border">25 tahun</td>
+                        <td id="jabatan" class="p-3 border">Manajer</td>
+                        <td id="status" class="p-3 border">Menikah</td>
+                        <td id="hasilgajiPokok" class="p-3 border text-right"></td>
+                        <td id="hasiltunjanganJabatan" class="p-3 border text-right"></td>
+                        <td id="hasilbpjs" class="p-3 border text-right"></td>
+                        <td id="hasilternary" class="p-3 border text-right"></td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr class="bg-gray-200 font-semibold">
+                        <td class="p-3 border">Total Gaji</td>
+                        <td id="hasiltotGaji" class="p-3 border text-right" colspan="7"></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // untuk mengambil nilai dari kolom Jabatan
+        let jabatan = document.querySelector("#jabatan").textContent;
+        let gajiPokok 
+        if (jabatan === "Manajer") {
+            gajiPokok = 15000000;
+        } else if (jabatan === "Asisten Manajer") {
+            gajiPokok = 10000000;
+        } else if (jabatan === "Staff") {
+            gajiPokok = 5000000;
+        } else {
+            gajiPokok = "Jabatan tidak dikenali";
+        }
+
+        // memberikan teks ke td dari value hasil gaji pokok
+        document.getElementById("hasilgajiPokok").innerText = "Rp. "+gajiPokok.toLocaleString("id-ID");
+
+        //mencari nilai dari tunjangan jabatan
+        let tunjanganJabatan = (15/100)*gajiPokok;
+        document.getElementById("hasiltunjanganJabatan").innerText = "Rp. "+ tunjanganJabatan.toLocaleString("id-ID");
+
+        //mencari nilai dari bpjs
+        let bpjs = (10/100)*gajiPokok;
+        document.getElementById("hasilbpjs").innerText = "Rp. "+ bpjs.toLocaleString("id-ID");
+
+        //mencari nilai dari tunjangan Keluarga
+        let status = document.querySelector("#status").textContent;
+        let tunjanganKeluarga = (status === "Menikah") ? (20 / 100) * gajiPokok : 0;
+        document.getElementById("hasilternary").innerText = "Rp. " + tunjanganKeluarga.toLocaleString("id-ID");
+
+        //mencari nilai dari Total Gaji
+        let totGaji = gajiPokok + tunjanganJabatan + bpjs + tunjanganKeluarga;
+        console.log(totGaji)
+        document.getElementById("hasiltotGaji").innerText = "Rp. "+ totGaji.toLocaleString("id-ID");
+
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+    </script>
+</body>
+</html>
